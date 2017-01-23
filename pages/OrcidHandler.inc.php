@@ -17,6 +17,10 @@
 import('classes.handler.Handler');
 
 class OrcidHandler extends Handler {
+	function OrcidHandler(&$request) {
+		parent::Handler();
+	}
+	
 	/**
 	 * Authorize handler
 	 * @param $args array
@@ -45,7 +49,7 @@ class OrcidHandler extends Handler {
 
 		$result = curl_exec($curl);
         $error = curl_error($curl);
-
+		
 
 		$response = json_decode($result, true);
 
@@ -111,7 +115,7 @@ class OrcidHandler extends Handler {
                             $emails = $json['orcid-profile']['orcid-bio']['contact-details']['email'];
                             if (!is_null($emails)) { // No emails retrieved from api. Email field may not be public
                                 foreach($emails as $email) {
-                                    $user->$userDao->getUserByEmail($email, false);
+                                    $user = $userDao->getUserByEmail($email[value], false);
 
                                     if (!is_null($user)) {
                                         $loggedInUser = $user;
@@ -141,6 +145,8 @@ class OrcidHandler extends Handler {
                     if ($loggedInUser) {
                         $userDao =& DAORegistry::getDAO('UserDAO');
 
+						$userSettingsDao->updateSetting($loggedInUser->getId(), 'orcidauth', 'http://orcid.org/' . $response['orcid'], 'string');
+						
                         $reason = null;
                         // The user is valid, mark user as logged in in current session
                         $sessionManager =& SessionManager::getManager();
