@@ -34,4 +34,5 @@
 	<message key="plugins.generic.orcidProfile.author.submission.success">Your submission has successfully been associated with your ORCID.</message>
 	<message key="plugins.generic.orcidProfile.author.submission.failure">Your submission could not be successfully associated with your ORCID. Please contact the journal manager with your name, ORCID, and details of your submission.</message>
 	<message key="plugins.generic.orcidProfile.authFailure">OJS was not able to communicate with the ORCID service. Please contact the journal manager with your name, ORCID, and details of your submission.</message>
+	<message key="plugins.generic.orcidProfile.oauthLoginError">OJS was not able to communicate with the ORCID service. Please contact the journal manager with your name, ORCID, and details of your submission.</message>
 </locale>
